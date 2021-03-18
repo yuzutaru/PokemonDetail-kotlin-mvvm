@@ -36,6 +36,7 @@ class PokemonDetailApplication: Application() {
         instance = this
         // DI
         component = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
             .build()
         component.inject(this)
     }
