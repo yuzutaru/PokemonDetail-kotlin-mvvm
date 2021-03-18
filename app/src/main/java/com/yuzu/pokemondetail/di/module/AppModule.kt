@@ -2,11 +2,19 @@ package com.yuzu.pokemondetail.di.module
 
 import android.annotation.SuppressLint
 import android.app.Application
+import com.yuzu.pokemondetail.model.api.PokemonAPI
+import com.yuzu.pokemondetail.model.repository.PokemonRepository
+import com.yuzu.pokemondetail.model.repository.PokemonRepositoryImpl
+import com.yuzu.pokemondetail.utils.BASE_URL
 import com.yuzu.pokemondetail.utils.TIMEOUT_HTTP
 import dagger.Module
 import dagger.Provides
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
@@ -73,5 +81,21 @@ class AppModule(private val app: Application) {
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
+    }
+
+    @Provides
+    fun pokemonAPI(): PokemonAPI {
+        return Retrofit.Builder()
+            .client(provideOkHttpClient())
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+            .build()
+            .create(PokemonAPI::class.java)
+    }
+
+    @Provides
+    fun pokemonRepository(api: PokemonAPI): PokemonRepository {
+        return PokemonRepositoryImpl(api)
     }
 }
