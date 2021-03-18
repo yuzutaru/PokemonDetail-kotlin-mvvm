@@ -14,5 +14,5 @@ interface PokemonAPI {
      * Get List Pokemon
      * */
     @GET(value = "pokemon")
-    fun pokemon(@Query("offset") offset: Int, @Query("limit") limit: String): Single<Pokemon>
+    fun pokemon(@Query("offset") offset: Int, @Query("limit") limit: Int): Single<Pokemon>
 }

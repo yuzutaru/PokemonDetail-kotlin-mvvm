@@ -9,7 +9,7 @@ import io.reactivex.Single
  */
 
 class PokemonRepositoryImpl(private val api: PokemonAPI): PokemonRepository {
-    override fun pokemon(offset: Int, limit: String): Single<Pokemon> {
+    override fun pokemon(offset: Int, limit: Int): Single<Pokemon> {
         return api.pokemon(offset, limit)
     }
 }

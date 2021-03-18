@@ -8,5 +8,5 @@ import io.reactivex.Single
  */
 
 interface PokemonRepository {
-    fun pokemon(offset: Int, limit: String): Single<Pokemon>
+    fun pokemon(offset: Int, limit: Int): Single<Pokemon>
 }
