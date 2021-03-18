@@ -28,7 +28,7 @@ import javax.net.ssl.X509TrustManager
  */
 
 @Module
-class AppModule(private val app: Application) {
+open class AppModule(private val app: Application) {
     @Provides
     fun app(): Application {
         return app
@@ -84,7 +84,7 @@ class AppModule(private val app: Application) {
     }
 
     @Provides
-    fun pokemonAPI(): PokemonAPI {
+    open fun pokemonAPI(): PokemonAPI {
         return Retrofit.Builder()
             .client(provideOkHttpClient())
             .baseUrl(BASE_URL)
@@ -95,7 +95,7 @@ class AppModule(private val app: Application) {
     }
 
     @Provides
-    fun pokemonRepository(api: PokemonAPI): PokemonRepository {
+    open fun pokemonRepository(api: PokemonAPI): PokemonRepository {
         return PokemonRepositoryImpl(api)
     }
 }
