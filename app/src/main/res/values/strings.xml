@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">PokemonDetail-kotlin-mvvm</string>
+
+    <string name="error_message">Error !! Please connect to the Internet.</string>
+    <string name="no_connection">No internet connection</string>
 </resources>
